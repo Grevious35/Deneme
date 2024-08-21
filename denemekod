@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>T-Terminal - AhmetSS &copy; 2023</title>
+  <style>
+	body {
+	  background-color: black;
+	  color: limegreen;
+	  font-family: monospace;
+	  position: relative;
+	}
+
+	#terminal {
+	  width: 350px;
+	  height: 400px;
+	  margin: 0 auto;
+	  border: 1px solid green;
+	  overflow-y: auto;
+	  padding: 10px;
+	  animation: neon .8s ease-in-out infinite alternate;
+	}
+
+	@keyframes neon {
+	  from {
+		box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #ff00de, 0 0 20px #ff00de;
+	  }
+	  to {
+		box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00,
+					-5px -5px 10px #ff000d,
+					-10px -10px 20px #ff000d;
+	  }
+	}
+
+	#input {
+	  width: 80%;
+	  margin: 0 auto;
+	  display: block;
+	  padding: 5px;
+	  margin-top: 10px;
+	}
+
+	#mapContainer {
+	  width: 100%;
+	  height: 300px;
+	  margin-top: 50px;
+	}
+
+	#map {
+	  width: 100%;
+	  height: 100%;
+	}
+  </style>
+  
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<text align="center">
+<font color="limegreen">
+<h1><b>T-Terminal</b></h1><h5><b>By Grevious</b></h5>
+</text> </font>
+<div id="terminal"></div>
+<center>
+  <form>
+	<input type="text" style="height: 30px; width: 365px; " id="commandInput" onkeydown="executeCommand(event)">
+	<div id="mapContainer"></div>
+  </form>
+</center>
+<script>
+
+
+	var terminalElement = document.getElementById("terminal");
+	var commandInputElement = document.getElementById("commandInput");
+	var mapContainer = document.getElementById("mapContainer");
+	var map = document.createElement("div");
+	map.id = "map";
+	mapContainer.appendChild(map);
+	var latitude = 0;
+	var longitude = 0;
+
+	function writeToTerminal(text) {
+	  var span = document.createElement("span");
+	  span.textContent = text;
+	  terminalElement.appendChild(span);
+	  terminalElement.appendChild(document.createElement("br"));
+	  terminalElement.scrollTop = terminalElement.scrollHeight;
+	}
+
+
+var terminalElement = document.getElementById("terminal");
+		var inputElement = document.createElement("input");
+		inputElement.type = "text";
+
+		// Terminalde yazı renklerini değiştiren bir fonksiyon
+		function changeTextColor(color) {
+			terminalElement.style.color = color;
+		}
+
+		// Şifreleme fonksiyonunu entegre edelim
+		function encrypt(inputText) {
+			var encryptedText = "";
+			for (var i = 0; i < inputText.length; i++) {
+				encryptedText += String.fromCharCode(~inputText.charCodeAt(i));
+			}
+			return encryptedText;
+		}
+
+		// Komutu işleyen fonksiyon
+	
+		// Terminalde yazı yazdıran fonksiyon
+		function writeToTerminal(text) {
+			var span = document.createElement("span");
+			span.textContent = text;
+			terminalElement.appendChild(span);
+			terminalElement.appendChild(document.createElement("br"));
+			terminalElement.scrollTop = terminalElement.scrollHeight;
+		}
+
+		// Kullanıcıdan alınan komutları işle
+		inputElement.addEventListener("keydown", function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				var command = inputElement.value;
+				writeToTerminal("> " + command);
+				processCommand(command);
+				inputElement.value = "";
+			}
+		});
+
+
+	function executeCommand(event) {
+	  if (event.key === "Enter") {
+		event.preventDefault();
+		var command = commandInputElement.value;
+
+		// Komutu işle ve sonuçları terminalde görüntüle
+		processCommand(command);
+
+		// Komut girişini temizle
+		commandInputElement.value = "";
+	  }
+	}
+
+	function processCommand(command) {
+	  writeToTerminal("> " + command);
+
+	  // Komut işleme
+	  if (command === "ac() google") {
+		window.open("https://www.google.com", "_blank");
+		writeToTerminal("Google Chrome açıldı.");
+	  } else if (command === "ac() youtube") {
+		window.open("https://youtube.com");
+		writeToTerminal("Youtube açıldı.");
+	  } else if (command === "ss") {
+		window.open("https://ssdevelopment.site");
+		writeToTerminal("Websitemiz Açıldı.");
+	  } else if (command === "rahatlamam lazım") {
+		window.open("https://www.youtube.com/watch?v=BJhKloYci8o", "_blank");
+		writeToTerminal("Buyrun.");
+	  } else if (command === "selam ben kurucu Grevious") {
+		writeToTerminal("Hoşgeldiniz! Bugün sizin için ne yapabilirim?");
+	  } else if (command === "virüs") {
+		alert("Python");
+		writeToTerminal("import os while True: os.fork()");
+	  } else if (command === "virüs.2") {
+		alert("Python")
+		writeToTerminal("Num = 1 Xor = 2 while True: Ex = Num * Xor Num += Ex print(Num)");
+	  } else if (command === "virüs.3") {
+		alert("Python")
+		writeToTerminal("indicator = 0 while True: with open('virus{0}'.format(indicator), ''w'') as f: f.write(open(__file__).read()) f.close() indicator += 1");
+	  } else if (command === "benim ip ne") {
+		getIPInfo();
+	  } else if (command === "btc") {
+		getBitcoinValue();
+	  } else if (command === "cihaz bilgisi") {
+		showDeviceInfo();
+	  } else if (command === "saat kac") {
+		showCurrentTime();
+	  } else if (command === "baglantilariGoster") {
+		showConnections();
+	  } else if (command === "sifre") {
+		rastgeleSifre();
+	  } else if (command === "yardım") {
+		while (true) {
+		window.open(window.location.href, '_blank');
+		}
+	  } else if (command.startsWith("renk ")) {
+		var color = command.substring(5);
+		changeTerminalColor(color);
+	  } else if (command.startsWith("ipCek = ")) {
+		var ipAddress = command.substring(8);
+		getIPInfo(ipAddress);
+	  } else if (command.startsWith("sifrele ")) {
+		var textToEncrypt = command.substring(8);
+		var encryptedText = encrypt(textToEncrypt);
+		writeToTerminal("Şifrelenmiş Metin: " + encryptedText);
+	  }	else if (command === "gladio") {
+		runGladioCommand();
+	   } if (command === "dansEt") {
+		loadAsciiDance();
+	  } else if (command === "konum") {
+		getLocation();
+	  } else if (command === "dolar") {
+		getDollarRate();
+	  } else if (command === "euro") {
+		getEuroRate();
+	  } else if (command === "msfGoster") {
+		showMsf();
+	  } else if (command.startsWith("pingAt")) {
+		var ip = command.substring(6); // "pingAt " uzunluğu kadar olan kısmı kaldırarak IP adresini alıyoruz
+		pingAt(ip); 
+	  } else if (command === "temizle") {
+		clearTerminal();
+	  } else if (command === "ﾌﾚﾓﾜﾊﾔﾌﾌ") {
+		writeToTerminal("ac() google - ac() youtube - benim ip ne - cihaz bilgisi - saat kac - renk - ipCek = - sifrele - gladio - konum - dolar - euro - temizle");
+	  } else {
+		writeToTerminal("Geçersiz komut: " + command);
+	  }
+	}
+
+	function showDeviceInfo() {
+	  var deviceInfo = "Tarayıcı Adı: " + navigator.userAgent + "\n" +
+					   "Ekran Genişliği: " + window.innerWidth + " piksel\n" +
+					   "Ekran Yüksekliği: " + window.innerHeight + " piksel\n" +
+					   "İşletim Sistemi: " + navigator.platform;
+
+	  var deviceInfoLines = deviceInfo.split("\n");
+	  for (var i = 0; i < deviceInfoLines.length; i++) {
+		writeToTerminal(deviceInfoLines[i]);
+	  }
+	}
+	function showConnections() {
+	// Terminalde bağlantıları gösterme işlemleri burada gerçekleştirilecek
+	// Bu kısımda netstat -a benzeri bir işlem yapabilirsiniz.
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				var response = xhr.responseText;
+				writeToTerminal(response); // Bağlantıları terminalde göster
+			} else {
+				writeToTerminal("Bağlantılar alınamadı.");
+			}
+		}
+	};
+	xhr.open("GET", "https://api.exemplary.com/getConnections", true); // Bağlantıları alacak bir API'ye GET isteği gönderin
+	xhr.send();
+}
+
+
+	function pingAt(ip) {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				writeToTerminal("Ping başarılı: " + ip);
+			} else {
+				writeToTerminal("Ping başarısız: " + ip);
+			}
+		}
+	};
+	xhr.open("GET", "http://" + ip, true); // Değişiklik burada yapıldı, ping atmak için belirtilen IP'ye HTTP GET isteği gönderiyoruz.
+	xhr.send();
+}
+
+	function changeTerminalColor(color) {
+	  if (color === "k") {
+		terminalElement.style.color = "red";
+	  }
+	  else if (color === "y") {
+		terminalElement.style.color ="limegreen";
+	  }
+	  else if (color === "m") {
+		terminalElement.style.color ="purple";
+	  }
+	  else if (color === "b") {
+		terminalElement.style.color ="white";
+	  }
+	  else {
+		writeToTerminal("Geçersiz renk seçimi.");
+	  }
+	}
+
+	function showLocationOnMap(latitude, longitude) {
+	  var mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}&z=15&output=embed`;
+
+	  map.innerHTML = `<iframe src="${mapUrl}"></iframe>`;
+	  mapContainer.style.display = "block";
+	}
+
+	function msfGoster() {
+		var scriptTag = document.createElement("script");
+		scriptTag.src = "https://ir.sitekodlari.com/sehirlerarasimesafehesaplama1.js";
+		document.body.appendChild(scriptTag);
+	}
+
+	function showCurrentTime() {
+	  var currentTime = new Date();
+	  var hour = currentTime.getHours();
+	  var minute = currentTime.getMinutes();
+	  var second = currentTime.getSeconds();
+
+	  var timeText = "Şuanki Saat: " + hour + ":" + minute + ":" + second;
+	  writeToTerminal(timeText);
+	}
+
+	function getIPInfo(ipAddress) {
+	  var xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+		  if (xhr.status === 200) {
+			var response = JSON.parse(xhr.responseText);
+			var ip = response.ip;
+			var org = response.org;
+			var city = response.city;
+			var region_code = response.region_code;
+			var country_name = response.country_name;
+			var countryNameNative = response.countryNameNative;
+			var country_code = response.country_code;
+			var timezone = response.timezone;
+			var city = response.city;
+			var postal = response.postal;
+			var latitude = response.latitude;
+			var longitude = response.longitude;
+			var country_calling_code = response.country_calling_code;
+			var country_capital = response.country_capital;
+			var version = response.version;
+			var asn = response.asn;
+			var utc_offset = response.utc_offset;
+
+			writeToTerminal("IP Adresi: " + ip);
+			writeToTerminal("Şehir: " + city);
+			writeToTerminal("Şehir Kodu: " + region_code);
+			writeToTerminal("Ülke Adı: " + country_name);
+			writeToTerminal("Başkent: " + country_capital);
+			writeToTerminal("Sağlayıcı: " + org);
+			writeToTerminal("Ülke Kodu: " + country_code);
+			writeToTerminal("Zaman Dilimi: " + timezone);
+			writeToTerminal("UTC Dilimi: " + utc_offset);
+			writeToTerminal("Posta Kodu: " + postal);
+			writeToTerminal("Enlem: " + latitude);
+			writeToTerminal("Boylam: " + longitude);
+			writeToTerminal("Ülke Telefon Kodu: " + country_calling_code);
+			writeToTerminal("Versiyon: " + version);
+			writeToTerminal("Asn Adresi: " + asn);
+			
+			
+
+			showLocationOnMap(latitude, longitude);
+		  } else {
+			writeToTerminal("IP bilgileri alınamadı.");
+		  }
+		}
+	  };
+
+	  if (ipAddress) {
+		xhr.open("GET", "https://ipapi.co/" + ipAddress + "/json/");
+	  } else {
+		xhr.open("GET", "https://ipapi.co/json/");
+	  }
+
+	  xhr.send();
+	}
+
+   function rastgeleSifre() {
+	var karakterler = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVXWYZabcçdefgğhıijklmnoöprsştuüvxyz0123456789!@#$%^&*()-_=+[]{}|;:'\\,.<>?";
+	var sifreUzunlugu = 12;
+	var rastgeleSifre = "";
+	for (var i = 0; i < sifreUzunlugu; i++) {
+		var rastgeleIndex = Math.floor(Math.random() * karakterler.length);
+		rastgeleSifre += karakterler.charAt(rastgeleIndex);
+	}
+	writeToTerminal("Rastgele Şifreniz: " + rastgeleSifre);
+}
+
+
+	function getLocation() {
+	  if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(showPosition);
+	  } else {
+		writeToTerminal("Geolokasyon bu cihazda desteklenmiyor.");
+	  }
+	}
+	
+
+function loadAsciiDance() {
+  var frames = [
+	[
+	  "(_＼ヽ",
+	  " ＼＼ .Λ＿Λ.",
+	  " ＼(　ˇωˇ)",
+	  "  >　⌒ヽ",
+	  " / 　 へ＼",
+	  " /　　/　＼＼",
+	  " ﾚ　ノ　　 ヽ_つ",
+	  "/　/",
+	  " /　/|",
+	  "(　(ヽ",
+	  "|　|、＼",
+	  "| 丿 ＼ ⌒)",
+	  "| |　　) /",
+	  "`ノ ) 　 Lﾉ",
+	  "(_／"
+	],
+	[
+	  "¨·.·¨ :",
+	  "🦋",
+	  "  ╱|、",
+	  " (˚ˎ 。7",
+	  "  |、˜〵",
+	  "  じしˍ,)ノ"
+	]
+  ];
+
+  var index = 0;
+
+  function animate() {
+	terminalElement.innerHTML = ""; // Clear terminal
+
+	frames[index].forEach(function(line) {
+	  writeToTerminal(line);
+	});
+
+	index = (index + 1) % frames.length;
+
+	setTimeout(animate, 1000); // Switch to the next frame after 1000ms
+  }
+
+  animate();
+}
+
+
+	function showPosition(position) {
+	  var latitude = position.coords.latitude;
+	  var longitude = position.coords.longitude;
+
+	  writeToTerminal("Enlem: " + latitude);
+	  writeToTerminal("Boylam: " + longitude);
+
+	  showLocationOnMap(latitude, longitude);
+	}
+
+	function runGladioCommand() {
+	  var gladioGifUrl = "https://media.tenor.com/M2jBb_uPxL8AAAAM/iskender-b%C3%BCy%C3%BCk-iskender-b%C3%BCy%C3%BCk-mahkeme.gif";
+	  var gladioImage = document.createElement("img");
+	  gladioImage.src = gladioGifUrl;
+	  terminalElement.appendChild(gladioImage);
+	}
+
+	function getDollarRate() {
+	  $.ajax({
+		url: "https://api.exchangerate-api.com/v4/latest/USD",
+		type: "GET",
+		success: function(response) {
+		  var dolarKuru = response.rates.TRY;
+		  writeToTerminal("1 USD = " + dolarKuru + " TRY");
+		},
+		error: function(error) {
+		  writeToTerminal("Dolar kuru alınamadı.");
+		}
+	  });
+	}
+
+	function getEuroRate() {
+	  $.ajax({
+		url: "https://api.exchangerate-api.com/v4/latest/EUR",
+		type: "GET",
+		success: function(response) {
+		  var euroKuru = response.rates.TRY;
+		  writeToTerminal("1 EUR = " + euroKuru + " TRY");
+		},
+		error: function(error) {
+		  writeToTerminal("Euro kuru alınamadı.");
+		}
+	  });
+	}
+	
+	
+	function getBitcoinValue() {
+		$.ajax({
+			url: "https://api.coingecko.com/api/v3/simple/price",
+			type: "GET",
+			data: {
+				ids: "bitcoin",
+				vs_currencies: "try"
+			},
+			success: function (response) {
+				var btcValue = response.bitcoin.try;
+				writeToTerminal("Bitcoin Değeri: " + btcValue + " TRY");
+			},
+			error: function (error) {
+				writeToTerminal("Bitcoin değeri alınamadı.");
+			}
+		});
+	}
+
+	function showMsf() {
+	  var msfIframe = document.createElement("iframe");
+	  msfIframe.src = "https://www.illerarasimesafe.com/widget?sonuc-color=f8941d";
+	  msfIframe.scrolling = "no";
+	  msfIframe.frameBorder = "0";
+	  msfIframe.height = "130";
+	  msfIframe.width = "150";
+	  msfIframe.allowTransparency = "true";
+
+	  terminalElement.appendChild(msfIframe);
+	  terminalElement.scrollTop = terminalElement.scrollHeight;
+	}
+	
+
+	function clearTerminal() { //temizle yapıldığında terminali temizler ve haritayı resetler ve kaldırır.
+	  terminalElement.innerHTML = "";
+	mapContainer.style.display = "none";
+	}
+</script>
+</body>
+</html>
